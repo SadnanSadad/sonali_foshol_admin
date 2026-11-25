@@ -68,6 +68,7 @@ export const bn = {
       passwordPlaceholder: '••••••••',
       signIn: 'সাইন ইন',
       signingIn: 'সাইন ইন হচ্ছে…',
+      verifying: 'সেশন যাচাই করা হচ্ছে…',
       demoTitle: 'ডেমো লগইন',
       demoHint: 'অ্যাডমিন প্যানেল ঘুরে দেখতে এই ডেমো তথ্য ব্যবহার করুন।',
       demoEmail: 'admin@sonalifoshol.com',

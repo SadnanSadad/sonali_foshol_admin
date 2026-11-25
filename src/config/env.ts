@@ -8,7 +8,7 @@ const envSchema = z.object({
 
 const parsed = envSchema.parse(import.meta.env)
 
-export const baseUrl = parsed.VITE_API_BASE_URL ?? 'http://localhost:8000'
+export const baseUrl = parsed.VITE_API_BASE_URL ?? ''
 
 export const apiUrl = `${baseUrl}/api`
 

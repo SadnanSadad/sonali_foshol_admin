@@ -1,10 +1,10 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useTranslation } from 'react-i18next'
 import { Navigate, useNavigate, useSearchParams } from 'react-router-dom'
 import { toast } from 'sonner'
-import { Leaf, LockKeyhole, Mail, Sparkles } from 'lucide-react'
+import { Eye, EyeOff, Leaf, LockKeyhole, Loader2, Mail, Sparkles } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import {
@@ -17,19 +17,23 @@ import {
 } from '@/components/ui/form'
 import { changeLanguage, type AppLanguage } from '@/i18n'
 import { useLoginMutation } from '@/hooks/mutations/auth'
+// import { fetchMe } from '@/api/auth.api' // unused since the post-login /me round-trip was removed
 import { loginSchema, type LoginValues } from '@/schemas/settings.schema'
 import { useAuthStore } from '@/store/auth.store'
-
-const DEMO_EMAIL = 'admin@sonalifoshol.com'
-const DEMO_PASSWORD = 'sonali123'
 
 export default function LoginPage() {
   const { t, i18n } = useTranslation()
   const navigate = useNavigate()
   const [searchParams] = useSearchParams()
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated)
+  // const clear = useAuthStore((state) => state.clear) // unused since the post-login /me round-trip was removed
   const loginMutation = useLoginMutation()
   const language: AppLanguage = i18n.language === 'bn' ? 'bn' : 'en'
+  const [showPassword, setShowPassword] = useState(false)
+  // The "verifying session" spinner was tied to the post-login /me round-trip, which has been
+  // removed. Kept here (commented out) for reference — re-enable together with that round-trip.
+  // const [verifying, setVerifying] = useState(false)
+  const verifying = false
 
   const form = useForm<LoginValues>({
     resolver: zodResolver(loginSchema),
@@ -51,8 +55,26 @@ export default function LoginPage() {
     loginMutation.mutate(
       { login: values.email, password: values.password, remember: false },
       {
-        onSuccess: (result) => {
+        onSuccess: async (result) => {
           if (result.kind === 'authenticated') {
+            // The extra `fetchMe()` round-trip was removed: it doubled the login latency and,
+            // when it raced the session establishment, its 401 response went through the axios
+            // interceptor and logged the freshly authenticated user straight back out.
+            // The login response already carries the user, and useLoginMutation has stored it
+            // in the auth store, so we can navigate immediately.
+            //
+            // await fetchMe()
+            // setVerifying(true)
+            // try {
+            //   await fetchMe()
+            //   navigate(redirect, { replace: true })
+            // } catch {
+            //   clear()
+            //   toast.error(t('auth.invalid'))
+            //   form.setError('root', { message: t('auth.invalid') })
+            // } finally {
+            //   setVerifying(false)
+            // }
             toast.success(t('auth.welcome', { name: result.user.name }))
             navigate(redirect, { replace: true })
           } else {
@@ -65,11 +87,6 @@ export default function LoginPage() {
         },
       },
     )
-  }
-
-  const fillDemo = () => {
-    form.setValue('email', DEMO_EMAIL, { shouldValidate: true })
-    form.setValue('password', DEMO_PASSWORD, { shouldValidate: true })
   }
 
   return (
@@ -135,28 +152,15 @@ export default function LoginPage() {
           <h2 className="font-serif text-2xl font-semibold">{t('auth.title')}</h2>
           <p className="mt-1 text-sm text-muted-foreground">{t('auth.subtitle')}</p>
 
-          <div className="mt-5 rounded-xl border border-border bg-card p-4">
-            <p className="flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-              <Sparkles className="size-3.5 text-primary" />
-              {t('auth.demoTitle')}
-            </p>
-            <p className="mt-1 text-xs text-muted-foreground">{t('auth.demoHint')}</p>
-            <div className="mt-2 grid gap-1 text-sm">
-              <p className="tabular">
-                <span className="text-muted-foreground">Email: </span>
-                {DEMO_EMAIL}
-              </p>
-              <p className="tabular">
-                <span className="text-muted-foreground">Password: </span>
-                {DEMO_PASSWORD}
-              </p>
+          {verifying && (
+            <div className="flex flex-col items-center justify-center gap-3 py-8 text-muted-foreground">
+              <Loader2 className="size-5 animate-spin" />
+              <p className="text-sm">{t('auth.verifying')}</p>
             </div>
-            <Button type="button" variant="outline" size="sm" className="mt-3 w-full" onClick={fillDemo}>
-              {t('auth.fillDemo')}
-            </Button>
-          </div>
+          )}
 
-          <Form {...form}>
+          {!verifying && (
+            <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="mt-5 space-y-4">
               <FormField
                 control={form.control}
@@ -191,11 +195,19 @@ export default function LoginPage() {
                         <LockKeyhole className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
                         <Input
                           {...field}
-                          type="password"
+                          type={showPassword ? 'text' : 'password'}
                           autoComplete="current-password"
                           placeholder={t('auth.passwordPlaceholder')}
-                          className="pl-9"
+                          className="pl-9 pr-9"
                         />
+                        <button
+                          type="button"
+                          onClick={() => setShowPassword((v) => !v)}
+                          className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+                          aria-label={showPassword ? 'Hide password' : 'Show password'}
+                        >
+                          {showPassword ? <EyeOff className="size-4" /> : <Eye className="size-4" />}
+                        </button>
                       </div>
                     </FormControl>
                     <FormMessage />
@@ -210,6 +222,7 @@ export default function LoginPage() {
               </Button>
             </form>
           </Form>
+          )}
         </div>
       </main>
     </div>

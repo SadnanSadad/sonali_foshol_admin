@@ -68,6 +68,7 @@ export const en = {
       passwordPlaceholder: '••••••••',
       signIn: 'Sign in',
       signingIn: 'Signing in…',
+      verifying: 'Verifying session…',
       demoTitle: 'Demo credentials',
       demoHint: 'Use these demo credentials to explore the admin panel.',
       demoEmail: 'admin@sonalifoshol.com',

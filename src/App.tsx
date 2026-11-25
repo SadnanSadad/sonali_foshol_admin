@@ -59,6 +59,15 @@ export default function App() {
     let active = true
 
     async function bootstrap() {
+      // Restore the session on a fresh page load. This runs once per mount — deliberately not
+      // keyed on `isAuthenticated`, because re-running it every time auth flipped meant a
+      // redundant /me request raced the login flow and could clear a valid session.
+      const { useAuthStore } = await import('@/store/auth.store')
+      if (useAuthStore.getState().isAuthenticated) {
+        if (active) setBootstrapping(false)
+        return
+      }
+
       setBootstrapping(true)
       try {
         const user = await fetchMe()
