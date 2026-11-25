@@ -1,0 +1,454 @@
+{
+  "sales": [
+    {
+      "date": "2026-08-22",
+      "revenue": 17496,
+      "orders": 12
+    },
+    {
+      "date": "2026-08-23",
+      "revenue": 7245,
+      "orders": 7
+    },
+    {
+      "date": "2026-08-24",
+      "revenue": 5940,
+      "orders": 6
+    },
+    {
+      "date": "2026-08-25",
+      "revenue": 6615,
+      "orders": 7
+    },
+    {
+      "date": "2026-08-26",
+      "revenue": 4500,
+      "orders": 5
+    },
+    {
+      "date": "2026-08-27",
+      "revenue": 2565,
+      "orders": 3
+    },
+    {
+      "date": "2026-08-28",
+      "revenue": 14216,
+      "orders": 13
+    },
+    {
+      "date": "2026-08-29",
+      "revenue": 11360,
+      "orders": 11
+    },
+    {
+      "date": "2026-08-30",
+      "revenue": 5040,
+      "orders": 7
+    },
+    {
+      "date": "2026-08-31",
+      "revenue": 8640,
+      "orders": 8
+    },
+    {
+      "date": "2026-09-01",
+      "revenue": 6210,
+      "orders": 6
+    },
+    {
+      "date": "2026-09-02",
+      "revenue": 3960,
+      "orders": 4
+    },
+    {
+      "date": "2026-09-03",
+      "revenue": 12285,
+      "orders": 13
+    },
+    {
+      "date": "2026-09-04",
+      "revenue": 17010,
+      "orders": 14
+    },
+    {
+      "date": "2026-09-05",
+      "revenue": 13851,
+      "orders": 12
+    },
+    {
+      "date": "2026-09-06",
+      "revenue": 8100,
+      "orders": 10
+    },
+    {
+      "date": "2026-09-07",
+      "revenue": 6120,
+      "orders": 8
+    },
+    {
+      "date": "2026-09-08",
+      "revenue": 3600,
+      "orders": 5
+    },
+    {
+      "date": "2026-09-09",
+      "revenue": 15120,
+      "orders": 14
+    },
+    {
+      "date": "2026-09-10",
+      "revenue": 12420,
+      "orders": 12
+    },
+    {
+      "date": "2026-09-11",
+      "revenue": 16038,
+      "orders": 12
+    },
+    {
+      "date": "2026-09-12",
+      "revenue": 17861,
+      "orders": 14
+    },
+    {
+      "date": "2026-09-13",
+      "revenue": 7200,
+      "orders": 8
+    },
+    {
+      "date": "2026-09-14",
+      "revenue": 4275,
+      "orders": 5
+    },
+    {
+      "date": "2026-09-15",
+      "revenue": 10530,
+      "orders": 13
+    },
+    {
+      "date": "2026-09-16",
+      "revenue": 7650,
+      "orders": 10
+    },
+    {
+      "date": "2026-09-17",
+      "revenue": 5760,
+      "orders": 8
+    },
+    {
+      "date": "2026-09-18",
+      "revenue": 17496,
+      "orders": 12
+    },
+    {
+      "date": "2026-09-19",
+      "revenue": 11178,
+      "orders": 8
+    },
+    {
+      "date": "2026-09-20",
+      "revenue": 3960,
+      "orders": 4
+    },
+    {
+      "date": "2026-09-21",
+      "revenue": 9450,
+      "orders": 10
+    },
+    {
+      "date": "2026-09-22",
+      "revenue": 7200,
+      "orders": 8
+    },
+    {
+      "date": "2026-09-23",
+      "revenue": 5130,
+      "orders": 6
+    },
+    {
+      "date": "2026-09-24",
+      "revenue": 5670,
+      "orders": 7
+    },
+    {
+      "date": "2026-09-25",
+      "revenue": 7229,
+      "orders": 7
+    },
+    {
+      "date": "2026-09-26",
+      "revenue": 4860,
+      "orders": 5
+    },
+    {
+      "date": "2026-09-27",
+      "revenue": 9720,
+      "orders": 9
+    },
+    {
+      "date": "2026-09-28",
+      "revenue": 8280,
+      "orders": 8
+    },
+    {
+      "date": "2026-09-29",
+      "revenue": 5940,
+      "orders": 6
+    },
+    {
+      "date": "2026-09-30",
+      "revenue": 6615,
+      "orders": 7
+    },
+    {
+      "date": "2026-10-01",
+      "revenue": 4500,
+      "orders": 5
+    },
+    {
+      "date": "2026-10-02",
+      "revenue": 5771,
+      "orders": 5
+    },
+    {
+      "date": "2026-10-03",
+      "revenue": 15309,
+      "orders": 14
+    },
+    {
+      "date": "2026-10-04",
+      "revenue": 6885,
+      "orders": 9
+    },
+    {
+      "date": "2026-10-05",
+      "revenue": 5040,
+      "orders": 7
+    },
+    {
+      "date": "2026-10-06",
+      "revenue": 8640,
+      "orders": 8
+    },
+    {
+      "date": "2026-10-07",
+      "revenue": 6210,
+      "orders": 6
+    },
+    {
+      "date": "2026-10-08",
+      "revenue": 3960,
+      "orders": 4
+    },
+    {
+      "date": "2026-10-09",
+      "revenue": 20412,
+      "orders": 16
+    },
+    {
+      "date": "2026-10-10",
+      "revenue": 15795,
+      "orders": 13
+    },
+    {
+      "date": "2026-10-11",
+      "revenue": 5985,
+      "orders": 7
+    },
+    {
+      "date": "2026-10-12",
+      "revenue": 6480,
+      "orders": 8
+    },
+    {
+      "date": "2026-10-13",
+      "revenue": 4590,
+      "orders": 6
+    },
+    {
+      "date": "2026-10-14",
+      "revenue": 2880,
+      "orders": 4
+    },
+    {
+      "date": "2026-10-15",
+      "revenue": 11880,
+      "orders": 11
+    },
+    {
+      "date": "2026-10-16",
+      "revenue": 16767,
+      "orders": 12
+    },
+    {
+      "date": "2026-10-17",
+      "revenue": 12029,
+      "orders": 9
+    },
+    {
+      "date": "2026-10-18",
+      "revenue": 6615,
+      "orders": 7
+    },
+    {
+      "date": "2026-10-19",
+      "revenue": 4500,
+      "orders": 5
+    },
+    {
+      "date": "2026-10-20",
+      "revenue": 2565,
+      "orders": 3
+    },
+    {
+      "date": "2026-10-21",
+      "revenue": 7290,
+      "orders": 9
+    },
+    {
+      "date": "2026-10-22",
+      "revenue": 5355,
+      "orders": 7
+    },
+    {
+      "date": "2026-10-23",
+      "revenue": 6804,
+      "orders": 7
+    },
+    {
+      "date": "2026-10-24",
+      "revenue": 11664,
+      "orders": 8
+    },
+    {
+      "date": "2026-10-25",
+      "revenue": 4140,
+      "orders": 4
+    },
+    {
+      "date": "2026-10-26",
+      "revenue": 2970,
+      "orders": 3
+    },
+    {
+      "date": "2026-10-27",
+      "revenue": 7560,
+      "orders": 8
+    },
+    {
+      "date": "2026-10-28",
+      "revenue": 6300,
+      "orders": 7
+    },
+    {
+      "date": "2026-10-29",
+      "revenue": 5130,
+      "orders": 6
+    },
+    {
+      "date": "2026-10-30",
+      "revenue": 9842,
+      "orders": 9
+    },
+    {
+      "date": "2026-10-31",
+      "revenue": 7229,
+      "orders": 7
+    },
+    {
+      "date": "2026-11-01",
+      "revenue": 2880,
+      "orders": 4
+    },
+    {
+      "date": "2026-11-02",
+      "revenue": 11880,
+      "orders": 11
+    },
+    {
+      "date": "2026-11-03",
+      "revenue": 9315,
+      "orders": 9
+    },
+    {
+      "date": "2026-11-04",
+      "revenue": 6930,
+      "orders": 7
+    },
+    {
+      "date": "2026-11-05",
+      "revenue": 8505,
+      "orders": 9
+    },
+    {
+      "date": "2026-11-06",
+      "revenue": 10935,
+      "orders": 9
+    },
+    {
+      "date": "2026-11-07",
+      "revenue": 6926,
+      "orders": 6
+    },
+    {
+      "date": "2026-11-08",
+      "revenue": 10530,
+      "orders": 13
+    },
+    {
+      "date": "2026-11-09",
+      "revenue": 8415,
+      "orders": 11
+    },
+    {
+      "date": "2026-11-10",
+      "revenue": 6480,
+      "orders": 9
+    },
+    {
+      "date": "2026-11-11",
+      "revenue": 10800,
+      "orders": 10
+    },
+    {
+      "date": "2026-11-12",
+      "revenue": 8280,
+      "orders": 8
+    },
+    {
+      "date": "2026-11-13",
+      "revenue": 9356,
+      "orders": 7
+    },
+    {
+      "date": "2026-11-14",
+      "revenue": 24239,
+      "orders": 19
+    },
+    {
+      "date": "2026-11-15",
+      "revenue": 9900,
+      "orders": 11
+    },
+    {
+      "date": "2026-11-16",
+      "revenue": 7695,
+      "orders": 9
+    },
+    {
+      "date": "2026-11-17",
+      "revenue": 8100,
+      "orders": 10
+    },
+    {
+      "date": "2026-11-18",
+      "revenue": 5355,
+      "orders": 7
+    },
+    {
+      "date": "2026-11-19",
+      "revenue": 2880,
+      "orders": 4
+    }
+  ]
+}

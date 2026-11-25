@@ -1,0 +1,217 @@
+import { useEffect } from 'react'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useTranslation } from 'react-i18next'
+import { Navigate, useNavigate, useSearchParams } from 'react-router-dom'
+import { toast } from 'sonner'
+import { Leaf, LockKeyhole, Mail, Sparkles } from 'lucide-react'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@/components/ui/form'
+import { changeLanguage, type AppLanguage } from '@/i18n'
+import { useLoginMutation } from '@/hooks/mutations/auth'
+import { loginSchema, type LoginValues } from '@/schemas/settings.schema'
+import { useAuthStore } from '@/store/auth.store'
+
+const DEMO_EMAIL = 'admin@sonalifoshol.com'
+const DEMO_PASSWORD = 'sonali123'
+
+export default function LoginPage() {
+  const { t, i18n } = useTranslation()
+  const navigate = useNavigate()
+  const [searchParams] = useSearchParams()
+  const isAuthenticated = useAuthStore((state) => state.isAuthenticated)
+  const loginMutation = useLoginMutation()
+  const language: AppLanguage = i18n.language === 'bn' ? 'bn' : 'en'
+
+  const form = useForm<LoginValues>({
+    resolver: zodResolver(loginSchema),
+    defaultValues: { email: '', password: '' },
+  })
+
+  useEffect(() => {
+    form.setFocus('email')
+  }, [form])
+
+  if (isAuthenticated) {
+    return <Navigate to="/" replace />
+  }
+
+  const redirectParam = searchParams.get('redirect')
+  const redirect = redirectParam?.startsWith('/') ? redirectParam : '/'
+
+  const onSubmit = (values: LoginValues) => {
+    loginMutation.mutate(
+      { login: values.email, password: values.password, remember: false },
+      {
+        onSuccess: (result) => {
+          if (result.kind === 'authenticated') {
+            toast.success(t('auth.welcome', { name: result.user.name }))
+            navigate(redirect, { replace: true })
+          } else {
+            toast.info('Two-factor authentication is required')
+          }
+        },
+        onError: (error: Error) => {
+          toast.error(error.message || t('auth.invalid'))
+          form.setError('root', { message: error.message || t('auth.invalid') })
+        },
+      },
+    )
+  }
+
+  const fillDemo = () => {
+    form.setValue('email', DEMO_EMAIL, { shouldValidate: true })
+    form.setValue('password', DEMO_PASSWORD, { shouldValidate: true })
+  }
+
+  return (
+    <div className="grid min-h-screen bg-background lg:grid-cols-2">
+      <aside className="relative hidden overflow-hidden bg-sidebar p-10 text-sidebar-foreground lg:flex lg:flex-col lg:justify-between">
+        <div className="flex items-center gap-3">
+          <span className="flex size-11 items-center justify-center rounded-2xl bg-sidebar-active text-sidebar-primary-foreground">
+            <Leaf className="size-6" />
+          </span>
+          <div>
+            <p className="text-lg font-semibold leading-tight">সোনালী ফসল অর্গানিকস</p>
+            <p className="text-xs text-sidebar-foreground/60">Admin Panel</p>
+          </div>
+        </div>
+
+        <div className="relative z-10 max-w-md">
+          <h1 className="font-serif text-4xl font-semibold leading-tight">
+            {t('auth.brandTagline')}
+          </h1>
+          <p className="mt-4 text-sm text-sidebar-foreground/70">
+            Products, orders, deliveries and customers — one calm workspace for the whole store.
+          </p>
+          <ul className="mt-8 space-y-3 text-sm text-sidebar-foreground/80">
+            <li className="flex items-center gap-2">
+              <Sparkles className="size-4 text-sidebar-active" />
+              Mock JSON data ready, REST API ready
+            </li>
+            <li className="flex items-center gap-2">
+              <Sparkles className="size-4 text-sidebar-active" />
+              Orders, calendar and low-stock alerts
+            </li>
+            <li className="flex items-center gap-2">
+              <Sparkles className="size-4 text-sidebar-active" />
+              Bangla product data, bilingual interface
+            </li>
+          </ul>
+        </div>
+
+        <p className="text-xs text-sidebar-foreground/50">© {new Date().getFullYear()} Sonali Foshol Organics</p>
+        <div className="pointer-events-none absolute -bottom-24 -right-24 size-80 rounded-full bg-sidebar-active/20 blur-2xl" />
+        <div className="pointer-events-none absolute -top-20 right-10 size-56 rounded-full bg-sidebar-accent/60 blur-3xl" />
+      </aside>
+
+      <main className="flex items-center justify-center p-4 sm:p-8">
+        <div className="w-full max-w-md">
+          <div className="mb-6 flex items-center justify-between">
+            <div className="flex items-center gap-2 lg:hidden">
+              <span className="flex size-9 items-center justify-center rounded-xl bg-sidebar text-sidebar-foreground">
+                <Leaf className="size-5" />
+              </span>
+              <span className="text-sm font-semibold">সোনালী ফসল</span>
+            </div>
+            <Button
+              variant="ghost"
+              size="sm"
+              className="ml-auto"
+              onClick={() => changeLanguage(language === 'bn' ? 'en' : 'bn')}
+            >
+              {language === 'bn' ? 'English' : 'বাংলা'}
+            </Button>
+          </div>
+
+          <h2 className="font-serif text-2xl font-semibold">{t('auth.title')}</h2>
+          <p className="mt-1 text-sm text-muted-foreground">{t('auth.subtitle')}</p>
+
+          <div className="mt-5 rounded-xl border border-border bg-card p-4">
+            <p className="flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+              <Sparkles className="size-3.5 text-primary" />
+              {t('auth.demoTitle')}
+            </p>
+            <p className="mt-1 text-xs text-muted-foreground">{t('auth.demoHint')}</p>
+            <div className="mt-2 grid gap-1 text-sm">
+              <p className="tabular">
+                <span className="text-muted-foreground">Email: </span>
+                {DEMO_EMAIL}
+              </p>
+              <p className="tabular">
+                <span className="text-muted-foreground">Password: </span>
+                {DEMO_PASSWORD}
+              </p>
+            </div>
+            <Button type="button" variant="outline" size="sm" className="mt-3 w-full" onClick={fillDemo}>
+              {t('auth.fillDemo')}
+            </Button>
+          </div>
+
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)} className="mt-5 space-y-4">
+              <FormField
+                control={form.control}
+                name="email"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>{t('auth.email')}</FormLabel>
+                    <FormControl>
+                      <div className="relative">
+                        <Mail className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
+                        <Input
+                          {...field}
+                          type="text"
+                          autoComplete="username"
+                          placeholder={t('auth.emailPlaceholder')}
+                          className="pl-9"
+                        />
+                      </div>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="password"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>{t('auth.password')}</FormLabel>
+                    <FormControl>
+                      <div className="relative">
+                        <LockKeyhole className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
+                        <Input
+                          {...field}
+                          type="password"
+                          autoComplete="current-password"
+                          placeholder={t('auth.passwordPlaceholder')}
+                          className="pl-9"
+                        />
+                      </div>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              {form.formState.errors.root ? (
+                <p className="text-sm text-destructive">{form.formState.errors.root.message}</p>
+              ) : null}
+              <Button type="submit" className="w-full" disabled={loginMutation.isPending}>
+                {loginMutation.isPending ? t('auth.signingIn') : t('auth.signIn')}
+              </Button>
+            </form>
+          </Form>
+        </div>
+      </main>
+    </div>
+  )
+}
